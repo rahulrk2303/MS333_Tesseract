@@ -4,7 +4,6 @@ from classify import prediction
 import tensorflow as tf
 import  _thread
 import time
-import panads as pd
 import json
 # We'll render HTML templates and access data sent by POST
 # using the request object from flask. Redirect and url_for
