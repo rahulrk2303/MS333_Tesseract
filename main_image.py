@@ -1,4 +1,4 @@
-from ctypes import *                                               # Import libraries
+from ctypes import *                                       # Import libraries
 import math
 import random
 import os
