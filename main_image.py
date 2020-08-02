@@ -360,7 +360,7 @@ def predict_from_web(fname):
 	print("Uploaded to firebase")
 
 	# return json.dumps(main_dict,indent=2)
-	return json2html.convert(json = main_dict), out_pat
+	return json2html.convert(json = main_dict), out_path
 
 # alpr.unload()
 	
