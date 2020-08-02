@@ -32,7 +32,7 @@ def prediction(image_path):
         # Sort to show labels of first prediction in order of confidence
         top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
 
-
+#prediction
         for node_id in top_k:
             count = 1
             human_string = label_lines[node_id]
