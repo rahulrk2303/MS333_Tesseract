@@ -13,12 +13,11 @@ from datetime import datetime
 
 from threading import Thread
 import concurrent.futures
+# import Main
+import json
+
 from openalpr import Alpr
 from car_make_model_color import Classifier
-import json
-from json2html import *
-
-from damage import pred
 
 import firebase_admin
 from firebase_admin import credentials
@@ -34,23 +33,13 @@ firebase_admin.initialize_app(cred, {
 
 # Firebase end
 
-# Setup ALPR
 
-alpr = Alpr("in", "openalpr.in_slow.conf", "runtime_data")
+alpr = Alpr("in", "openalpr.in.conf", "runtime_data")
 if not alpr.is_loaded():
 	print("Error loading OpenALPR")
 	sys.exit(1)
-alpr.set_top_n(10)
+alpr.set_top_n(5)
 alpr.set_default_region("in")
-
-dd = 0
-classifier = Classifier()
-
-netMain = None
-metaMain = None
-altNames = None
-
-filename = ""
 
 
 def convertBack(x, y, w, h):
@@ -60,13 +49,20 @@ def convertBack(x, y, w, h):
 	ymax = int(round(y + (h / 2)))
 	return xmin, ymin, xmax, ymax
 
+dd = 0
+classifier = Classifier()
+# prev_time_lp = 0
+
+
+filename = ""
+
 main_dict = {}
 
 def cvDrawBoxes(detections, img, counter):
 	# Colored labels dictionary
 	color_dict = {
-		'person' : [0, 255, 255], 'motorbike' : [255, 255, 0], 
-		'truck' : [0, 255, 0], 'bus' : [255, 0, 0],
+		# 'person' : [0, 255, 255], 'motorbike' : [255, 255, 0], 
+		# 'truck' : [0, 255, 0], 'bus' : [255, 0, 0],
 		'car' : [0, 0, 255]
 	}
 
@@ -74,8 +70,7 @@ def cvDrawBoxes(detections, img, counter):
 
 	detections_list = []
 
-	# print(len(detections))
-
+	
 	for detection in detections:
 		if detection[1] > 0.4 :
 			x, y, w, h = detection[2][0],\
@@ -95,9 +90,10 @@ def cvDrawBoxes(detections, img, counter):
 					plates_dict = {}
 
 
-					if boxed.shape[0] > 50 and boxed.shape[1] > 50 and name_tag in ['car', 'truck', 'bus', 'motorbike', 'person']:  
+					# if boxed.shape[0] > 100 and boxed.shape[1] > 100 and name_tag in ['car', 'truck', 'bus', 'motorbike', 'person']:  
+					if boxed.shape[0] > 100 and boxed.shape[1] > 100 and name_tag in ['car']:  
 
-						damage = pred(boxed) # Damage detection
+						# damage = pred(boxed) # Damage detection
 						
 
 						color_result = classifier.predict_color(boxed)
@@ -153,9 +149,9 @@ def cvDrawBoxes(detections, img, counter):
 							pts = np.array(pts)
 							pts = pts.reshape((-1,1,2))
 							cv2.polylines(img,[pts],True,(0,255,0),thickness = 2)
-							# cv2.putText(img, str(lpr_candidate),
-							# 		(p1[0]+10, p1[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 1,
-							# 		color, 2)
+							cv2.putText(img, str(lpr_candidate),
+									(p1[0]+10, p1[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 1,
+									color, 2)
 
 							plates_dict = {
 								"plate_box": [p1,p2,p3,p4],
@@ -167,13 +163,13 @@ def cvDrawBoxes(detections, img, counter):
 						pt1 = (xmin, ymin)
 						pt2 = (xmax, ymax)
 						cv2.rectangle(img, pt1, pt2, color, 2)
-						# cv2.putText(img,
-						# 			detection[0].decode() + " " + 
-						# 			mm_result[0]['make'] + " " + 
-						# 			mm_result[0]['model'] + " " +
-						# 			color_result[0]['color'],
-						# 			(pt1[0]+10, pt1[1] + 35), cv2.FONT_HERSHEY_SIMPLEX, 1,
-						# 			color, 2)
+						cv2.putText(img,
+									detection[0].decode() + " " + 
+									mm_result[0]['make'] + " " + 
+									mm_result[0]['model'] + " " +
+									color_result[0]['color'],
+									(pt1[0]+10, pt1[1] + 35), cv2.FONT_HERSHEY_SIMPLEX, 1,
+									color, 2)
 
 						# detections_list.append({
 						# 	"vehicle_type": detection[0].decode(),
@@ -195,7 +191,6 @@ def cvDrawBoxes(detections, img, counter):
 						if name_tag == 'car' or name_tag == 'truck' or name_tag == 'bus':
 							detections_list_dict["color"] = color_result
 							detections_list_dict["make_model"] = mm_result
-							detections_list_dict["damage"] = damage
 
 						if plates_dict:
 							detections_list_dict['plates'] = plates_dict
@@ -208,14 +203,21 @@ def cvDrawBoxes(detections, img, counter):
 	# sec = str(frame_time).split('.')[0]
 	# millisec = str(frame_time).split('.')[1]
 	# ttt = sec + '_' + millisec
-	image_name = filename.split('/')[-1].split('.')[0]
+	video_name = filename.split('/')[-1].split('.')[0]
 
+
+	# if detections_list:
+	# 	main_dict[video_name][counter] = {
+	# 		"detections": detections_list
+	# 	}
 
 	if detections_list:
-		main_dict["image"] = {
-			"image_name": image_name,
-			"detections": detections_list
-		}
+		main_dict['frames'].append({
+			"frame": counter,
+			"detections": detections_list,
+			"datetime" : datetime.now().strftime("%d/%m/%Y %H:%M:%S:%f")
+
+		})
 
 
 	# if detections_list:
@@ -234,53 +236,94 @@ def cvDrawBoxes(detections, img, counter):
 	return img
 
 
-def YOLO_image(filename):
+netMain = None
+metaMain = None
+altNames = None
+
+
+
+def YOLO_video(filename):
    
 	global metaMain, netMain, altNames
+	
+	#cap = cv2.VideoCapture(0)                                      # Uncomment to use Webcam
+	# cap = cv2.VideoCapture("../videos/camera11.mp4")
+	print("[INFO] starting video file thread...")
+	# fvs = FileVideoStream("../../../Downloads/deepdrive.mp4").start()
 
-	# filename = "./images/img1.png"
+	fvs = FileVideoStream(filename).start()
+	# cap = cv2.VideoCapture("test2.mp4")                             # Local Stored video detection - Set input video
+	frame = fvs.read()
+	# frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+	# frames = []
+
+	video = cv2.VideoCapture(filename)
+	fps_video = video.get(cv2.CAP_PROP_FPS)
+	skipframes = 2
+
+	main_dict['fps'] = fps_video
+	main_dict['skipframes'] = skipframes
+	# print("FPS ACTUAL : ", format(fps_video))
+
+	frame_height, frame_width = frame.shape[:2]
+	darknet_image = darknet.make_image(frame_width, frame_height, 3) # Create image according darknet for compatibility of network
+
+	out_writer = cv2.VideoWriter('outputs/outpy.mp4',
+	cv2.VideoWriter_fourcc('M','J','P','G'), fps_video//skipframes, (frame_width,frame_height))
 
 
-	frame = cv2.imread(filename)
 
+	counter = 0
+	print("Starting the YOLO loop...")
+	fps = FPS().start()
 
-	if type(frame) is not np.ndarray:
-		print("Invalid image")
-	else:
+	# time.sleep(5)
 
-		frame_height, frame_width = frame.shape[:2]
-		darknet_image = darknet.make_image(frame_width, frame_height, 3) # Create image according darknet for compatibility of network
-		frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)      # Convert frame into RGB from BGR and resize accordingly
-		frame_resized = cv2.resize(frame_rgb,
-								   (frame_width, frame_height),
-								   interpolation=cv2.INTER_LINEAR)
+	while fvs.more():
 
-		darknet.copy_image_from_bytes(darknet_image,frame_resized.tobytes())                # Copy that frame bytes to darknet_image
+		frame = fvs.read()
+		# frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
 
-		detections = darknet.detect_image(netMain, metaMain, darknet_image, thresh=0.25)    # Detection occurs at this line and return detections, for customize we can change the threshold.             
+		if type(frame) is not np.ndarray:
+			break
+		else:
+			if counter%skipframes == 0:
+				frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)      # Convert frame into RGB from BGR and resize accordingly
+				frame_resized = cv2.resize(frame_rgb,
+										   (frame_width, frame_height),
+										   interpolation=cv2.INTER_LINEAR)
 
-		# print("Frame no. ", format(counter))
-		frame_time = 0
+				darknet.copy_image_from_bytes(darknet_image,frame_resized.tobytes())                # Copy that frame bytes to darknet_image
 
-		image = cvDrawBoxes(detections, cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB), frame_time)               # Call the function cvDrawBoxes() for colored bounding box per class
-		# image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-		# print((time.time()-prev_time))
+				detections = darknet.detect_image(netMain, metaMain, darknet_image, thresh=0.5)    # Detection occurs at this line and return detections, for customize we can change the threshold.             
 
-		# cv2.imshow('Demo', image)                                    # Display Image window
-		
-		# cv2.waitKey(0)
+				# print("Frame no. ", format(counter))
+				# frame_time = 1/ (fps_video/counter)
 
-		# out_image_path = "uploads/"
-		out_image_name = "out" + filename.split('/')[-1]
+				image = cvDrawBoxes(detections, cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGB), counter)               # Call the function cvDrawBoxes() for colored bounding box per class
+				# image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+				# print((time.time()-prev_time))
 
-		out_path = "uploads/" + out_image_name
+				cv2.imshow('Demo', image)                                    # Display Image window
+				cv2.waitKey(1)
+				# out_writer.write(image)
 
-		print(out_path)
+				if cv2.waitKey(1) & 0xFF == ord('q'):
+					break
+				
+				# cv2.imwrite('cars/frame' + str(counter//skipframes) + '.jpg', image)
+				
+				fps.update()
+		counter+=1  
 
-		cv2.imwrite(out_path, image)
+	fps.stop()
 
+	fvs.stop()
+
+	print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
+	print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
 	cv2.destroyAllWindows()
-	return out_path
+	alpr.unload()
 
 
 configPath = "./cfg/yolov4-tiny.cfg"                                 # Path to cfg
@@ -302,65 +345,66 @@ if metaMain is None:
 	metaMain = darknet.load_meta(metaPath.encode("ascii"))
 
 
-if __name__ == "__main__":  	
-
-	while True:
-		print("Enter path to image : ")
-		filename = "./images/" + input()
-
-		YOLO_image(filename)                                                           # Calls the main function YOLO()
-
-		image_name = filename.split('/')[-1].split('.')[0]
-
-		main_dict['location'] = filename  
-		main_dict['timestamp'] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-		main_dict['query'] = image_name
 
 
-		# with open("results/" + image_name + ".json", 'w') as out:
-		# 	json.dump(main_dict, out, indent=4, separators=(',', ': ')) 
+if __name__ == "__main__":  
 
-		# print("JSON stored to: results/" + image_name + ".json" ) 
+	# filename = "./videos/shantha2.mp4"
+	filename = "./videos/sowmya.mp4"
 
-		# ref = db.reference('/query_images')
-		# ref.child(image_name).set(main_dict)
+	video_name = filename.split('/')[-1].split('.')[0]
 
+	main_dict['location'] = filename
+	main_dict['timestamp'] = datetime.now().strftime("%d/%m/%Y %H:%M:%S:%f")
+	main_dict['camera_id'] = video_name
+	main_dict['frames'] = []
 
-		# print("Uploaded to firebase")
+	# main_dict[filename.split('/')[-1].split('.')[0]] = {}
 
-	alpr.unload()
+	YOLO_video(filename)  
 
+	with open("results/" + video_name + ".json", 'w') as out:
+		json.dump(main_dict, out, indent=4, separators=(',', ': '))  
 
-def predict_from_web(fname):
-	global filename, main_dict
-	filename = fname
-	main_dict = {}
+	print("JSON stored to: results/" + video_name + ".json" ) 
 
-	out_path = YOLO_image(filename)                                                           # Calls the main function YOLO()
-	
-	image_name = filename.split('/')[-1].split('.')[0]
-
-	main_dict['location'] = filename  
-	main_dict['timestamp'] = datetime.now().strftime("%d/%m/%Y %H:%M:%S%f")
-	main_dict['query'] = image_name
-
-
-	with open("results/" + image_name + ".json", 'w') as out:
-		json.dump(main_dict, out, indent=4, separators=(',', ': ')) 
-
-		# ref = db.reference('/query_images')
-		# ref.child(image_name).set(main_dict)
-
-	print("JSON stored to: results/" + image_name + ".json" ) 
-
-	ref = db.reference('/query_images')
-	ref.child(image_name).set(main_dict)
+	ref = db.reference('/cctv2')
+	ref.child(video_name).set(main_dict)
 
 
 	print("Uploaded to firebase")
 
-	# return json.dumps(main_dict,indent=2)
-	return json2html.convert(json = main_dict), out_path
+	alpr.unload()                                                    
 
-# alpr.unload()
-	
+
+def predict_video_from_web(fname):  
+
+	# filename = "./videos/shantha2.mp4"
+	# filename = "./videos/shantha2.mp4"
+
+	global filename
+	filename = fname
+
+	video_name = filename.split('/')[-1].split('.')[0]
+
+	main_dict['location'] = filename
+	main_dict['timestamp'] = datetime.now().strftime("%d/%m/%Y %H:%M:%S:%f")
+	main_dict['camera_id'] = video_name
+	main_dict['frames'] = []
+
+	# main_dict[filename.split('/')[-1].split('.')[0]] = {}
+
+	YOLO_video(filename)  
+
+	with open("results/" + video_name + ".json", 'w') as out:
+		json.dump(main_dict, out, indent=4, separators=(',', ': '))  
+
+	print("JSON stored to: results/" + video_name + ".json" ) 
+
+	ref = db.reference('/cctv2')
+	ref.child(video_name).set(main_dict)
+
+
+	print("Uploaded to firebase")
+
+	alpr.unload()                                                    
