@@ -97,7 +97,8 @@ def cvDrawBoxes_image(detections, img, counter):
 					
 					plate_list = []
 					plate_conf_list = []
-
+					expired = []
+					exp_out = ''
 
 
 					if name_tag == 'person':
@@ -115,6 +116,8 @@ def cvDrawBoxes_image(detections, img, counter):
 
 						
 						colors, colors_conf = classifier.predict_color(boxed)
+						make_model, make_model_conf = classifier.predict_mm(boxed)
+						damage = pred(boxed) # Damage detection
 
 						results = alpr.recognize_ndarray(boxed)
 						lpr_candidate = ""
@@ -141,6 +144,12 @@ def cvDrawBoxes_image(detections, img, counter):
 							for candidate in plate['candidates']:
 
 
+								plex = is_expired(candidate['plate'])
+								expired.append(plex)
+								if plex == 'Valid' or plex == 'Expired':
+									lpr_candidate = candidate['plate']
+
+
 								prefix = "-"
 								if candidate['matches_template']:
 									prefix = "*"
@@ -150,7 +159,12 @@ def cvDrawBoxes_image(detections, img, counter):
 								plate_list.append(candidate['plate'])
 								plate_conf_list.append(candidate['confidence'])
 
-							
+							if 'Valid' in expired:
+								exp_out = 'Valid'
+							elif 'Expired' in expired:
+								exp_out = 'Expired'
+							else:
+								exp_out = 'Unregistered'							
 															
 
 							coordinates = results['results'][0]['coordinates']
@@ -207,23 +221,33 @@ def cvDrawBoxes_image(detections, img, counter):
 						pt2 = (xmax, ymax)
 						cv2.rectangle(img, pt1, pt2, color, 2)
 						cv2.putText(img,
-									detection[0].decode() + " " + 
+									# detection[0].decode() + " " + 
+									make_model[0] + " " +
+
 									colors[0],
 									(pt1[0]+10, pt1[1] + 35), cv2.FONT_HERSHEY_SIMPLEX, 1,
 									color, 2)
 
+						if lpr_candidate:
+							cv2.putText(img, "Insurance " + exp_out,
+										(pt1[0]+10, pt2[1] + 40), cv2.FONT_HERSHEY_SIMPLEX, 1,
+										color, 2)
 
 						detections_list_dict = {}
 
 						if detection[0]:
 							detections_list_dict["vehicle_type"] = name_tag
+							detections_list_dict["make_model"] = make_model
 						
 							detections_list_dict["colors"] = colors
+							
+							# detections_list_dict["damage"] = damage
 
 							detections_list_dict['plate'] = plate_list
 							detections_list_dict['plate_conf'] = plate_conf_list
 
 							detections_list_dict['plate_type'] = lp_color_type
+							detections_list_dict['insurance'] = exp_out
 
 						detections_list.append(detections_list_dict)
 
@@ -271,12 +295,14 @@ def cvDrawBoxes_video(detections, img, counter):
 					
 					plate_list = []
 					plate_conf_list = []
-	
+					expired = []
+					exp_out = ''	
 
 					# if boxed.shape[0] > 100 and boxed.shape[1] > 100 and name_tag in ['car', 'truck', 'bus', 'motorbike', 'person']:  
 					if boxed.shape[0] > 100 and boxed.shape[1] > 100 and name_tag in color_dict.keys():  
 
 						colors, colors_conf = classifier.predict_color(boxed)
+						make_model, make_model_conf = classifier.predict_mm(boxed)
 
 						results = alpr.recognize_ndarray(boxed)
 						lpr_candidate = ""
@@ -295,7 +321,10 @@ def cvDrawBoxes_video(detections, img, counter):
 
 							for candidate in plate['candidates']:
 
-								
+								plex = is_expired(candidate['plate'])
+								expired.append(plex)
+								if plex == 'Valid' or plex == 'Expired':
+									lpr_candidate = candidate['plate']								
 
 								prefix = "-"
 								if candidate['matches_template']:
@@ -311,7 +340,12 @@ def cvDrawBoxes_video(detections, img, counter):
 								plate_list.append(candidate['plate'])
 								plate_conf_list.append(candidate['confidence'])
 
-
+							if 'Valid' in expired:
+								exp_out = 'Valid'
+							elif 'Expired' in expired:
+								exp_out = 'Expired'
+							else:
+								exp_out = 'Unregistered'
 
 
 
@@ -358,16 +392,24 @@ def cvDrawBoxes_video(detections, img, counter):
 						pt2 = (xmax, ymax)
 						cv2.rectangle(img, pt1, pt2, color, 2)
 						cv2.putText(img,
-									name_tag + ' ' +
+									# name_tag + ' ' +
+									make_model[0] + " " +
+
 									colors[0],
 									(pt1[0]+10, pt1[1] + 35), cv2.FONT_HERSHEY_SIMPLEX, 1,
 									color, 2)
+
+						if lpr_candidate:
+							cv2.putText(img, "Insurance " + exp_out,
+										(pt1[0]+10, pt2[1] + 40), cv2.FONT_HERSHEY_SIMPLEX, 1,
+										color, 2)
 
 
 						detections_list_dict = {}
 
 						if detection[0]:
 							detections_list_dict["vehicle_type"] = name_tag
+							detections_list_dict["make_model"] = make_model
 
 							detections_list_dict["colors"] = colors
 
@@ -567,7 +609,7 @@ def save_json_video(video_name, main_dict):
 
 	print("JSON stored to: " + json_path ) 
 
-	print("Uploaded to firebase")
+	# print("Uploaded to firebase")
 
 
 
@@ -653,7 +695,51 @@ def predict_video_from_web(fname):
 
 	# alpr.unload()   
 
+def predict_from_app(fname):
+	global filename, main_dict, alpr
+	filename = fname
+	main_dict = {}
 
+	# alpr = Alpr("in", "openalpr.in_slow.conf", "runtime_data")
+
+	# alpr.unload()
+	alpr = Alpr("in", "openalpr.in_slow.conf", "runtime_data")
+	if not alpr.is_loaded():
+		print("Error loading OpenALPR")
+		sys.exit(1)
+	alpr.set_top_n(5)
+	alpr.set_default_region("in")
+
+	out_path = YOLO_image(filename)                                                           # Calls the main function YOLO()
+	
+	image_name = filename.split('/')[-1].split('.')[0]
+
+	# print(image_name)
+
+	main_dict['location'] = filename  
+	main_dict['timestamp'] = datetime.now().strftime("%d/%m/%Y %H:%M:%S%f")
+
+	return main_dict, out_path
+
+
+vahan_json = open('sample_vahan_db/vahan_db.json') 
+vahan = json.load(vahan_json)
+today = date.today()
+
+
+def is_expired(lp):
+	if lp in vahan.keys():
+		dd = vahan[lp]['insurance_expiry']
+		exp = dd.split('-')
+		exp_date = date(int(exp[2]), int(exp[1]), int(exp[0]))
+		# print(exp_date)
+		# print(today)
+		if exp_date < today:
+			return 'Expired'
+		else:
+			return 'Valid'	
+	else:
+		return 'Unregistered'
 
 
 configPath = "./cfg/yolov4-tiny.cfg"                                 # Path to cfg
