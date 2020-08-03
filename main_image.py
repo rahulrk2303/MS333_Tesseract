@@ -188,8 +188,9 @@ def cvDrawBoxes(detections, img, counter):
 						detections_list_dict = {}
 
 						if detection[0]:
-							detections_list_dict["vehicle_type"] = name_tag
+							
 							detections_list_dict["bounding_box"] = [list(pt1), list(pt2)]
+							detections_list_dict["vehicle_type"] = name_tag
 							detections_list_dict["confidence"] = detection[1]
 
 						if name_tag == 'car' or name_tag == 'truck' or name_tag == 'bus':
