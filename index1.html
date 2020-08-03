@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Tesseract.ai</title>
+	<!-- <link rel="stylesheet" href="bootstrap-4.1.3-dist/css/bootstrap.min.css"> -->
+	
+ 	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/fixed.css')}}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	 <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"> -->
+	<script type="text/javascript">
+ 		$(function () {
+        	$("#btnClosePopup").click(function () {
+            	$("#one").modal("hide");
+        	});
+    	});
+  	</script>
+</head>
+
+<body data-spy="scroll" data-target="#navbarResponsive">
+
+<!-- Start Home -->
+<div id="home">
+	
+<!-- Start Navbar -->
+
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" style="background-color: rgba(0,0,0,0.95)!important;">
+		<a class="navbar-brand" href="http://localhost:5000/"><i class="fas fa-code"></i> <img style="width:12rem; padding-left: 0.6rem;" src="{{ url_for('static', filename='img/text/tess.png')}}"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="#home">Home</a>
+				</li>
+				<li>
+					<a class="nav-link" href="#events">Features</a>
+				</li>
+				<li>
+					<a class="nav-link" href="#register">Demo</a>
+				</li>
+				<li>
+					<a class="nav-link" href="#team">Team</a>
+				</li>
+				<li>	
+					<a class="nav-link" href="#about">About</a>
+				</li>
+				<li>	
+					<!-- <a class="nav-link" href="#sponsors">Sponsors</a> -->
+				</li>
+				<li>
+					<a class="nav-link" href="#contact">Contact</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+<!-- End Navbar -->
+
+<!-- Start Landing page -->
+
+	<div class="landing">
+		<div class="home-wrap">
+			<div class="home-inner">
+				<div id="particles-js"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="caption text-center">
+		<!-- <h1> <strong> Vehicle Detection and Compilation in Database</strong></h1> -->
+		<!-- <h5>( Autonomous-Affiliated to Anna University )</h5>
+		<h4> Department of Information Technology </h4> -->
+		<div><img style="max-width: 80rem; margin-bottom: 2rem;" src="{{ url_for('static', filename='img/text/vehicle.png')}}" width="100%"></div>
+		<!-- <h4>A National Level Technical Symposium </h4> -->
+		<a class="btn btn-light btn-lg" href="#register">Get Started</a><br><br>
+		<a class="btn btn-outline-light btn-md" href="#events">View Features</a>
+	</div>
+
+<!-- End Landing page -->
+
+</div>
+<!-- End Home -->
+
+
+<div id="events" class="offset">
+	<div class="jumbotron">
+		<div class="container-fluid">
+		<div class="col-12 text-center">
+			<h1 class="heading">Features</h1>
+			<div class="heading-underline"></div>
+		</div>
+  		<div class="row text-center justify-content-center align-items-center">
+				<div class="row text-center">
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-fast-forward fa-4x" data-fa-transform="shrink-3 up-5"></i></a>
+							<h3>High Speed</h3>
+							<p>Inference time < 0.5 seconds</p>
+							
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-bullseye fa-4x" data-fa-transform="shrink-3 up-5"></i></a>
+							<h3>High accuracy</h3>
+							<p>Accuracy of over 90% in detecting license plates</p>
+							
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-video fa-4x" data-fa-transform="shrink-3 up-5"></i>
+							<h3>Images & Videos</h3>
+							<p>Works with both images and real time video streams</p>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-id-badge fa-4x" data-fa-transform="shrink-3 up-5"></i>
+							<h3>License plate recognition</h3>
+							<p>Highly accurate number plate recognition</p>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-car fa-4x" data-fa-transform="shrink-3 up-5"></i>
+							<h3>Make and Model</h3>
+							<p>Identifies 163 car makes and 1716 car models</p>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-rupee-sign fa-4x" data-fa-transform="shrink-3 up-5"></i>
+							<h3>Indian Plates</h3>
+							<p>Accurately tuned to identify different patterns of Indian number plates</p>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-tint fa-4x" data-fa-transform="shrink-3 up-5"></i>
+							<h3>Color classification</h3>
+							<p>Realtime color classification of vehicles</p>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-database fa-4x" data-fa-transform="shrink-3 up-5"></i>
+							<h3>Realtime database</h3>
+							<p>Detections of all vehicles are updated to online database in realtime</p>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-search fa-4x" data-fa-transform="shrink-3 up-5"></i>
+							<h3>Suspect vehicle search</h3>
+							<p>Fast search feature to track suspect or theft vehicles</p>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-mobile fa-4x" data-fa-transform="shrink-3 up-5"></i>
+							<h3>App support</h3>
+							<p>User friendly app is available</p>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-car-crash fa-4x" data-fa-transform="shrink-3 up-5"></i>
+							<h3>Damage detection</h3>
+							<p>Damages such as dents, broken lights, glass shatters can be detected</p>
+						</div>
+					</div>
+
+					<div class="col-sm-4">
+						<div class="register">
+							<i class="fas fa-map-marked-alt fa-4x" data-fa-transform="shrink-3 up-5"></i>
+							<h3>Date, Time, Location</h3>
+							<p>Details of all the detected vehicles will be stored in database</p>
+						</div>
+					</div>
+
+
+				</div>
+				
+
+
+		</div>
+		</div>
+		<!-- Pop up for all Events-->
+
+<!-- Finished 10-->
+	</div>
+</div>
+
+<!--End of Event List-->
+
+
+
+
+
+
+
+<!-- Start Register -->
+<div id="register" class="offset" >
+	
+	<div class="fixed-background" style='height:100vh'>
+		<div class="narrow dark" style='padding-top: 20rem'>
+			<!-- <div class="row dark"> -->
+				<div class="col-12 text-center">
+					<h1 class="heading">Demo</h1>
+					<div class="heading-underline"></div>
+				</div>
+
+				<div class="text-center">
+					<div class="contr"><h4 class="section-heading text-white">Select an image/video and click upload !</h4></div>
+		          <br/>
+		          <form action="upload" method="post" enctype="multipart/form-data">
+		          <div class="form-group">
+		            <input class="btn btn-xl btn-outline-light" type="file" name="file" class="file" accept="image/jpg, image/jpeg, image/png, video/mp4, video/mpeg, video/avi">
+		            </div>
+		          <input type="submit" class="btn btn-primary btn-lg" value="Upload"><br /><br />
+		          </form>
+				</div>
+
+				
+
+				
+			<!-- </div> -->
+		</div>
+		<div class="fixed-wrap">
+			<div class="fixed">
+				
+			</div>
+		</div>
+	</div>
+	
+</div>
+<!-- End Register -->
+
+<!-- Start Team -->
+<div id="team" class="offset">
+	<div class="jumbotron">
+		<div class="col-12 text-center">
+			<h1 class="heading"><br>Team Tesseract</h1>
+			<div class="heading-underline"></div>
+		</div>
+
+		<div class="row justify-content-center align-items-center">
+
+			<div class="col-sm-6 col-lg-4 team">
+				<div class="row">
+					<div class="col-12 text-center">
+						<h2>Team Leader</h2>
+						<img src="img/AIT/vidhya.jpg"><br>
+						<h4>XYZ</h4>					
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-lg-4 team">
+				<div class="row">
+					<div class="col-12 text-center">
+						<h2>Team Member</h2>
+						<img src="img/AIT/vidhya.jpg"><br>
+						<h4>XYZ</h4>					
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-lg-4 team">
+				<div class="row">
+					<div class="col-12 text-center">
+						<h2>Team Member</h2>
+						<img src="img/AIT/vidhya.jpg"><br>
+						<h4>XYZ</h4>					
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-lg-4 team">
+				<div class="row">
+					<div class="col-12 text-center">
+						<h2>Team Member</h2>
+						<img src="img/AIT/vidhya.jpg"><br>
+						<h4>XYZ</h4>					
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-lg-4 team">
+				<div class="row">
+					<div class="col-12 text-center">
+						<h2>Team Member</h2>
+						<img src="img/AIT/vidhya.jpg"><br>
+						<h4>XYZ</h4>					
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-lg-4 team">
+				<div class="row">
+					<div class="col-12 text-center">
+						<h2>Team Member</h2>
+						<img src="img/AIT/vidhya.jpg"><br>
+						<h4>XYZ</h4>					
+					</div>
+				</div>
+			</div>
+			<br>
+			<hr class="socket"><br>
+
+
+			<div class="col-sm-6 col-lg-4 team">
+				<div class="row">
+					<div class="col-12 text-center">
+						<h2>Faculty Mentor</h2>
+						<img src="img/AIT/vidhya.jpg"><br>
+						<h4>XYZ</h4>					
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-lg-4 team">
+				<div class="row">
+					<div class="col-12 text-center">
+						<h2>Faculty Mentor</h2>
+						<img src="img/AIT/vidhya.jpg"><br>
+						<h4>XYZ</h4>					
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+
+		
+	</div>
+</div>
+<!-- End Team -->
+
+<!-- Start About -->
+<div id="about" class="offset">
+		<div class="fixed-background">
+		<div class="dark">
+			<!-- <div class="row"> -->
+			<div class="col-12 text-center">
+				<h1 class="heading">About</h1>
+				<div class="heading-underline"></div>
+			</div>
+
+			<div id="carouselExample" class="carousel slide" data-ride="carousel">
+				<ol class="carousel-indicators">
+				    <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
+				    <li data-target="#carouselExample" data-slide-to="1"></li>
+				    <li data-target="#carouselExample" data-slide-to="2"></li>
+				    <li data-target="#carouselExample" data-slide-to="3"></li>
+				</ol>
+			  	<div class="carousel-inner">
+			  		<div class="carousel-item active">
+			      		<div class="carousel-caption d-block">
+			        		<h3>Our College</h3>
+			        		<p>The Vision of the College is to develop the institution into a Center of Excellence by offering quality engineering education and research.The Students not only earn their degrees in various disciplines but also learn to acquire total personality, emphasize ethical values and prepare themselves to meet the growing challenges of the industry and diverse societal needs of our nation.</p>
+			    	  	</div>
+			    	</div>
+			    	<div class="carousel-item">
+			      		<div class="carousel-caption d-block">
+			        		<h3>Our Department</h3>
+			        		<p>In 1996, Sri Venkateswara College of Engineering pioneered the introduction of the B.Tech degree programme in Information Technology under the affiliation of University of Madras. This is the first of its kind in Indian Universities. The department fulfills the requirements for the award of B.Tech Degree of Anna University. </p>
+			      		</div>
+			    	</div>
+			    	<div class="carousel-item">
+			      		<div class="carousel-caption d-block">
+			        		<h3>Vision</h3>
+			        		<p>To produce higher calibre technologists and scientists for helping the country to attain new heights in Information Technology research and industrial needs to provide leadership in the field of technical education.</p>
+			      		</div>
+			    	</div>
+			    	<div class="carousel-item">
+			      		<div class="carousel-caption d-block">
+			        		<h3>Mission</h3>
+			        		<p>To develop the department into a “Centre of Excellence in Information Technology” offering engineering education to the students at Undergraduate, Postgraduate and Doctoral degree levels, bringing out their total personality, mphasizing ethical values and preparing them to meet the growing challenges in the Information Technology industry as well as research institutes and diverse societal needs of our Nation.</p>
+			      		</div>
+			    	</div>
+			 				   
+				</div>
+
+			</div>
+			<!-- </div> -->
+		</div>
+		<div class="fixed-wrap">
+			<div class="fixed">
+				
+			</div>
+		</div>
+	</div>
+
+</div>
+<!-- End About -->
+<!-- End About -->
+
+<!-- Start sponsors -->
+<!-- <div id="sponsors" class="offset">
+	<div class="jumbotron">
+		<div class="">
+			<div class="col-12 text-center">
+				<h1 class="heading">Our Sponsors</h1>
+				<div class="heading-underline"></div>
+			</div>
+
+			<div class="row text-center justify-content-center align-items-center">
+				<div class="col-md-4 col-sm-6">
+					<div class="sponsor">
+						<a target="_blank" href="https://studymonk.in/"><img style="width:100%; max-width:20rem;" src="img/Sponsors/sponsor1.png"></a>
+						<a target="_blank" class="btn btn-outline-dark btn-sm" href="https://studymonk.in/prizes">Click to win a goodie</a><br>
+						Follow our Instagram Page <br><a class="follow"  target="_blank" href="https://www.instagram.com/studymonk.inc/">StudyMonk.inc</a> 
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div> -->
+<!-- End sponsors -->
+
+
+<!-- Start Contact -->
+<div id="contact" class="offset">
+	<footer>
+		<div class="row justify-content-center">
+			<div class="col-md-5 text-center">
+				<h1><i class="fas fa-code"></i> <img style="width:15rem;" src="{{ url_for('static', filename='img/text/tess.png')}}"></h1>
+				<!-- <h1 class="heading"><br></h1> -->
+				<div class="heading-underline"></div>
+				<br>
+				<!-- <p>Protocol 22e is a National Level Technical Symposium conducted by the Department of Information Technology and the Association of Information Technologists. Protocol is stepping into its 22nd year with vivid events. Check out our events. Do support us by your participation. Cheer us with your extreme talent. </p>
+				<br> -->
+
+				<!-- <hr class="socket"> <br> -->
+
+				<!-- <h2><strong>Contact Us</strong></h2><br> -->
+
+				<!-- <h5>Deepika - <a href="tel:9884718092">9884718092</a></h5>
+				<h5>Baskaran - <a href="tel:9843552065">9843552065</a></h5>
+
+				<h5><a href="mailto:protocol22e@gmail.com">protocol22e@gmail.com</a></h5> -->
+				<br>
+			</div>
+		</div>
+		<div class="row justify-content-center align-items-center">
+			<!-- <div class="col-md-12 text-center" id="map">
+
+					<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.7610888892978!2d79.97089431475572!3d12.987126890845724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a528cd1a35744dd%3A0xc7a7db1c8c0349e2!2sSVCE%20IT%20Dept!5e0!3m2!1sen!2sin!4v1568205842865!5m2!1sen!2sin" width="70%" height="350" frameborder="0" style="border:0;" allowfullscreen=""></iframe>
+					<br>
+			</div>	 -->
+
+			<br>
+			<hr class="socket">
+			<div class="col-12 text-center">
+				&copy; Tesseract.ai
+			</div>
+		</div>
+	</footer>
+</div>
+<!-- End Contact -->
+
+<!-- <script src="js/jquery-3.3.1.min.js"></script> -->
+<!-- <script src="bootstrap-4.1.3-dist/js/bootstrap.min.js"></script> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+
+<script src="{{ url_for('static', filename='js/particles.js')}}"></script>
+<script src="{{ url_for('static', filename='js/app.js')}}"></script>
+
+</body>
+</html>
+
+<!-- <i class="fas fa-play-circle fa-4x" data-fa-transform="shrink-3 up-5"></i> -->
