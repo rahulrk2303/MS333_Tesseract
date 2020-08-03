@@ -6,7 +6,7 @@ import torch.nn.functional as F
 import time
 
 from torch.autograd import Variable
-#classes
+
 damage_dict = {
 0: 'Glass shatter',
 1: 'Head lamp broken' ,
