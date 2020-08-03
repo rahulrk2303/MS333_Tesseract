@@ -1,0 +1,272 @@
+{
+  "AP06K17" : {
+    "insurance_expiry" : "19-05-2021",
+    "make_model" : "AUDI A3",
+    "owner" : "Chaitanya",
+    "plate" : "AP06K17",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "AP09M2233" : {
+    "insurance_expiry" : "4-12-2020",
+    "make_model" : "MERCEDES BENZ C CLASS",
+    "owner" : "Muralidaran",
+    "plate" : "AP09M2233",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "KA01AB1067" : {
+    "insurance_expiry" : "10-4-2020",
+    "make_model" : "VOLVO 9400 B9R 6X2",
+    "owner" : "PARTNER CONTI TRAVELS",
+    "plate" : "KA01AB1067",
+    "vehicle_class" : "Bus(HPV)"
+  },
+  "KA03ML2677" : {
+    "insurance_expiry" : "05-7-2021",
+    "make_model" : "TOYOTA INNOVA",
+    "owner" : "M MUNE GOWDA",
+    "plate" : "KA03ML2677",
+    "vehicle_class" : "Omni Bus(LMV)"
+  },
+  "KA12AA8900" : {
+    "insurance_expiry" : "12-5-2020",
+    "make_model" : "TOYOTA CAMRY",
+    "owner" : "MOHAMMED THOWFIQ",
+    "plate" : "KA12AA8900",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "MH02F4085" : {
+    "insurance_expiry" : "15-5-2020",
+    "make_model" : "MITSUBISHI PAJERO",
+    "owner" : "MUKESH",
+    "plate" : "MH02F4085",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "MH12EG8179" : {
+    "insurance_expiry" : "29-3-2021",
+    "make_model" : "FORD FIESTA",
+    "owner" : "PANKAJ KUMAR SHRIVASTAVA",
+    "plate" : "MH12EG8179",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "MH20BY8799" : {
+    "insurance_expiry" : "24-1-2021"
+  },
+  "TN01AW3922" : {
+    "insurance_expiry" : "19-2-2021"
+  },
+  "TN01AW6730" : {
+    "insurance_expiry" : "14-5-2020"
+  },
+  "TN01BC9943" : {
+    "insurance_expiry" : "15-8-2020"
+  },
+  "TN01G8055" : {
+    "insurance_expiry" : "15-09-2022",
+    "make_model" : "MAHINDRA BOLERO",
+    "owner" : "THE COMMISSIONER OF POLICE",
+    "plate" : "TN01G8055",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN02AA3281" : {
+    "insurance_expiry" : "28-4-2021"
+  },
+  "TN02AR6970" : {
+    "insurance_expiry" : "2-3-2022"
+  },
+  "TN02BB5001" : {
+    "insurance_expiry" : "17-11-2021"
+  },
+  "TN02BC8326" : {
+    "insurance_expiry" : "9-6-2020"
+  },
+  "TN02BD3888" : {
+    "insurance_expiry" : "30-1-2024"
+  },
+  "TN02BJ05941" : {
+    "insurance_expiry" : "19-12-2020"
+  },
+  "TN02BK6751" : {
+    "insurance_expiry" : "29-11-2020",
+    "make_model" : "NISSAN SUNNY",
+    "owner" : "VEERASELVI I",
+    "plate" : "TN02BK6751",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN02BM6055" : {
+    "insurance_expiry" : "5-4-2021"
+  },
+  "TN02BQ3335" : {
+    "insurance_expiry" : "1-2-2021"
+  },
+  "TN02BQ8464" : {
+    "insurance_expiry" : "17-6-2022",
+    "make_model" : "HYUNDAI VENUE",
+    "owner" : "VIVEK N",
+    "plate" : "TN02BQ8464",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN02BR7823" : {
+    "insurance_expiry" : "21-6-2021"
+  },
+  "TN02BR8560" : {
+    "insurance_expiry" : "3-4-2022"
+  },
+  "TN05BM7680" : {
+    "insurance_expiry" : "12-1-2021"
+  },
+  "TN05BP7993" : {
+    "insurance_expiry" : "14-9-2021"
+  },
+  "TN05BU6666" : {
+    "insurance_expiry" : "25-12-2022",
+    "make_model" : "VOLVO XC90",
+    "owner" : "Consulate General Of Japan ",
+    "plate" : "TN05BU6666",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN07BM2640" : {
+    "insurance_expiry" : "17-7-2021",
+    "make_model" : "HYUNDAI VERNA",
+    "owner" : "CHARLES DEVADOSS SELWYN",
+    "plate" : "TN07BM2640",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN07CE3173" : {
+    "insurance_expiry" : "4-4-2021",
+    "make_model" : "VOLKSWAGEN POLO",
+    "owner" : "SATHYANARAYANAN",
+    "plate" : "TN07CE3173",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN09BL0007" : {
+    "insurance_expiry" : "16-6-2021",
+    "make_model" : "ROLLS ROYCE PHANTOM 7",
+    "owner" : "KALPATHI INVESTMENTS PVT LTD",
+    "plate" : "TN09BL0007",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN09CT1112" : {
+    "insurance_expiry" : "30-11-2020"
+  },
+  "TN10AX0540" : {
+    "insurance_expiry" : "16-12-2020",
+    "make_model" : "MARUTI RITZ",
+    "owner" : "D ALUDEEN",
+    "plate" : "TN10AX0540",
+    "vehicle_class" : "Motor Cab(LPV)"
+  },
+  "TN10AZ8118" : {
+    "insurance_expiry" : "19-7-2020",
+    "make_model" : "RENAULT DUSTER",
+    "owner" : "NITIN RAJENDRAN",
+    "plate" : "TN10AZ8118",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN10AZ8205" : {
+    "insurance_expiry" : "29-6-2023"
+  },
+  "TN11AA5271" : {
+    "insurance_expiry" : "11-5-2021",
+    "make_model" : "FIAT G PUNTO",
+    "owner" : "SUJITH VAISHNAV K",
+    "plate" : "TN11AA5271",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN11AJ2502" : {
+    "insurance_expiry" : "23-10-2020",
+    "make_model" : "HYUNDAI I20 ASTA",
+    "owner" : "MANOHARAN G",
+    "plate" : "TN11AJ2502",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN11AQ1188" : {
+    "insurance_expiry" : "29-10-2020",
+    "make_model" : "TATA ZEST XE",
+    "owner" : "LAKSHMIPATHY G",
+    "plate" : "TN11AQ1188",
+    "vehicle_class" : "Motor Cab(LPV)"
+  },
+  "TN11F8559" : {
+    "insurance_expiry" : "24-3-2021",
+    "make_model" : "HONDA AMAZE",
+    "owner" : "T KARTHIK KUMAR",
+    "plate" : "TN11F8559",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN14A0259" : {
+    "insurance_expiry" : "16-3-2021",
+    "make_model" : "HYUNDAI XCENT",
+    "owner" : "NATIONAL ENGINEERING",
+    "plate" : "TN14A0259",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN18AL6763" : {
+    "insurance_expiry" : "4-5-2020",
+    "make_model" : "MARUTI SWIFT",
+    "owner" : "SRINIVASULU V",
+    "plate" : "TN18AL6763",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN18AP5475" : {
+    "insurance_expiry" : "16-1-2021",
+    "make_model" : "MARUTI TOUR S ",
+    "owner" : "SELVAM R",
+    "plate" : "TN18AP5475",
+    "vehicle_class" : "Motor Cab(LPV)"
+  },
+  "TN19L1981" : {
+    "insurance_expiry" : "23-9-2020",
+    "make_model" : "AUDI Q5",
+    "owner" : "GOODWIN PUMPS INDIA PVT LTD",
+    "plate" : "TN19L1981",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN21AR1053" : {
+    "insurance_expiry" : "5-4-2022"
+  },
+  "TN22DC9290" : {
+    "insurance_expiry" : "19-12-2020"
+  },
+  "TN22DM8175" : {
+    "insurance_expiry" : "24-12-2020",
+    "make_model" : "MARUTI SWIFT",
+    "owner" : "SUNDARI K",
+    "plate" : "TN22DM8175",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN23CW4690" : {
+    "insurance_expiry" : "19-12-2020",
+    "make_model" : "HONDA AMAZE",
+    "owner" : "ANBUMARAN R",
+    "plate" : "TN23CW4690",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN57D3786" : {
+    "insurance_expiry" : "12-12-2022",
+    "make_model" : "HINDUSTAN MOTORS CONTESSA",
+    "owner" : "Rajinikanth",
+    "plate" : "TN57D3786",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TN87A8911" : {
+    "insurance_expiry" : "25-4-2020",
+    "make_model" : "HYUNDAI VENUE",
+    "owner" : "HYUNDAI MOTOR INDIA LTD",
+    "plate" : "TN87A8911",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "TSK9595" : {
+    "insurance_expiry" : "8-7-2020",
+    "make_model" : "HINDUSTAN MOTOR",
+    "owner" : "METHA.A",
+    "plate" : "TSK9595",
+    "vehicle_class" : "Motor Car(LMV)"
+  },
+  "WB24T3013" : {
+    "insurance_expiry" : "16-3-2019",
+    "make_model" : "MARUTI WAGON-R",
+    "owner" : "KANYE WEST",
+    "plate" : "WB24T3013",
+    "vehicle_class" : "Motor Car()"
+  }
+}
